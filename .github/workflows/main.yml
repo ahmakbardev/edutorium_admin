@@ -29,7 +29,6 @@ jobs:
             source ~/.bash_profile
             which composer
             composer --version
-            cp .env.example .env
             composer install
             composer update
             php artisan key:generate
@@ -39,3 +38,7 @@ jobs:
             php artisan optimize
             ln -s /home/u376682195/domains/edutorium.in/edutorium_admin/public /home/u376682195/domains/edutorium.in/public_html/admin
             ln -s /home/u376682195/domains/edutorium.in/edutorium_admin/public/storage/* /home/u376682195/domains/edutorium.in/public_html/staging/storage
+            
+            # Set permissions for storage directory
+            find /home/u376682195/domains/edutorium.in/edutorium_admin/storage -type d -exec chmod 755 {} \;
+            find /home/u376682195/domains/edutorium.in/edutorium_admin/storage -type f -exec chmod 644 {} \;
