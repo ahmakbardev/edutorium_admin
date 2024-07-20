@@ -35,6 +35,7 @@ jobs:
             php artisan key:generate
             php artisan route:clear
             php artisan config:cache
+            php artisan storage:link
             php artisan optimize
-            rm -rf /home/u376682195/domains/edutorium.in/public_html/admin
             ln -s /home/u376682195/domains/edutorium.in/edutorium_admin/public /home/u376682195/domains/edutorium.in/public_html/admin
+            ln -s /home/u376682195/domains/edutorium.in/edutorium_admin/public/storage/* /home/u376682195/domains/edutorium.in/public_html/staging/public/storage
