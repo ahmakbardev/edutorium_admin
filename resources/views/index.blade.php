@@ -224,18 +224,18 @@
                                         $averageScore = $totalScore / count($kriteriaPenilaian);
                                     } else {
                                         // Debugging output
-                                        echo 'Error decoding JSON or kriteria_penilaian is not an array for assessment ID: ' .
-                                            $assessment->id;
-                                        echo '<br>Raw JSON: ' . $assessment->kriteria_penilaian;
-                                        echo '<br>Cleaned JSON: ' . $cleanedJsonString;
-                                        echo '<br>JSON Error: ' . json_last_error_msg();
+                                        // echo 'Error decoding JSON or kriteria_penilaian is not an array for assessment ID: ' .
+                                        //     $assessment->id;
+                                        // echo '<br>Raw JSON: ' . $assessment->kriteria_penilaian;
+                                        // echo '<br>Cleaned JSON: ' . $cleanedJsonString;
+                                        // echo '<br>JSON Error: ' . json_last_error_msg();
                                     }
                                 } else {
                                     // Debugging output
-                                    echo 'No assessment found for livecode_tutorial_id: ' .
-                                        $livecode->module_id .
-                                        ' and user_id: ' .
-                                        $livecode->user_id;
+                                    // echo 'No assessment found for livecode_tutorial_id: ' .
+                                    //     $livecode->module_id .
+                                    //     ' and user_id: ' .
+                                    //     $livecode->user_id;
                                 }
                             @endphp
                             <div class="card bg-white shadow-md rounded-md overflow-hidden flex flex-col hover:scale-105 hover:shadow-lg transition-all ease-in-out"
