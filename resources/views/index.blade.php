@@ -3,14 +3,14 @@
 @section('content')
     <div class="bg-indigo-600 px-8 pt-10 lg:pt-14 pb-16 flex justify-between items-end mb-3">
         <div class="flex flex-col gap-3">
-            @include('components.breadcrumb')
+            {{-- @include('components.breadcrumb') --}}
             <h1 class="text-3xl text-white group">Selamat Datang <span
                     class="font-semibold border-b hover:border-b-2 transition-all ease-in-out cursor-default group-hover:text-4xl">Admin</span>
                 !</h1>
         </div>
-        <a href="#"
+        <a href="{{ route('tugas_akhir_assessments.index') }}"
             class="btn bg-white text-gray-800 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-200 active:bg-gray-100 active:text-gray-800 active:border-gray-200 focus:outline-none focus:ring-4 focus:ring-indigo-300">
-            Belajar Sekarang
+            Nilai Tugas Akhir Sekarang
         </a>
     </div>
     @if (session('just_logged_in'))

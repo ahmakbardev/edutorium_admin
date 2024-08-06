@@ -72,14 +72,15 @@
             </li>
             <!-- nav item -->
             <li class="nav-item">
-                <a class="nav-link collapsed {{ request()->routeIs('penilaian.*') ? 'active' : '' }}" href="#!"
-                    data-bs-toggle="collapse" data-bs-target="#penilaian"
-                    aria-expanded="{{ request()->routeIs('penilaian.*') ? 'true' : 'false' }}"
+                <a class="nav-link collapsed {{ request()->routeIs('livecode_assessments.*', 'tugas_akhir_assessments.*') ? 'active' : '' }}"
+                    href="#!" data-bs-toggle="collapse" data-bs-target="#penilaian"
+                    aria-expanded="{{ request()->routeIs('livecode_assessments.*', 'tugas_akhir_assessments.*') ? 'true' : 'false' }}"
                     aria-controls="penilaian">
                     <i data-feather="edit-3" class="w-4 h-4 mr-2"></i>
                     Penilaian
                 </a>
-                <div id="penilaian" class="collapse {{ request()->routeIs('penilaian.*') ? 'show' : '' }}"
+                <div id="penilaian"
+                    class="collapse {{ request()->routeIs('livecode_assessments.*', 'tugas_akhir_assessments.*') ? 'show' : '' }}"
                     data-bs-parent="#sideNavbar">
                     <ul class="nav flex-col">
                         <li class="nav-item">

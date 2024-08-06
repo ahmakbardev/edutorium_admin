@@ -69,9 +69,9 @@
         </div>
     </div>
 
-    <div class="offcanvas translate-x-full fixed top-0 right-0 border-l border-gray-300 transition-all duration-300 transform h-full invisible bg-white z-50 max-w-xs"
+    <div class="offcanvas translate-x-full fixed top-0 w-full right-0 border-l border-gray-300 transition-all duration-300 transform h-full invisible bg-white z-50 max-w-xl"
         tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div class="flex items-center p-4">
+        <div class="flex items-center p-4 justify-between w-full">
             <h5 class="text-lg" id="offcanvasRightLabel">Livecode Tutorial</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -82,7 +82,7 @@
                 <span class="sr-only">Close menu</span>
             </button>
         </div>
-        <div class="p-4">
+        <div class="p-4 max-h-[800px]" data-simplebar="">
             @foreach ($livecodeTutorials as $tutorial)
                 <div class="mb-4">
                     <h5 class="text-md font-semibold">{{ $tutorial->name }}</h5>

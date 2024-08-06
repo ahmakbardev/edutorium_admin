@@ -90,7 +90,7 @@
     </div>
 
     <!-- Offcanvas for Description -->
-    <div class="offcanvas translate-x-full fixed top-0 right-0 border-l border-gray-300 transition-all duration-300 transform h-full invisible bg-white z-50 max-w-xs"
+    <div class="offcanvas translate-x-full fixed top-0 right-0 border-l w-full max-w-xl border-gray-300 transition-all duration-300 transform h-full invisible bg-white z-50"
         tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="flex items-center p-4">
             <h5 class="text-lg" id="offcanvasRightLabel">Deskripsi Tugas Akhir</h5>
@@ -107,13 +107,13 @@
         </div>
         <div class="p-4">
             <div class="mb-4">
-                <h5>Deskripsi:</h5>
-                <p>{!! $tugasAkhir->deskripsi !!}</p>
-            </div>
-            <div class="mb-4">
                 <h5>Deskripsi PDF:</h5>
                 <a href="{{ asset('storage/' . $tugasAkhir->deskripsi_pdf) }}" target="_blank"
                     class="text-blue-600 hover:underline">Lihat Deskripsi PDF</a>
+            </div>
+            <div class="mb-4 max-h-[800px]" data-simplebar="">
+                <h5>Deskripsi:</h5>
+                <p>{!! $tugasAkhir->deskripsi !!}</p>
             </div>
         </div>
     </div>
