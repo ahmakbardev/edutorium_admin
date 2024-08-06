@@ -12,53 +12,61 @@
 
                 <div class="container mx-auto">
                     <div class="relative overflow-x-auto overflow-y-auto max-h-[458px]" data-simplebar="">
-                        <table class="text-left w-full whitespace-nowrap">
-                            <thead class="text-gray-700 sticky top-0">
-                                <tr>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">User</th>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Nilai</th>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($progress as $item)
-                                    @php
-                                        $livecode = json_decode($item->livecode, true);
-                                        $assessment = $assessments
-                                            ->where('user_id', $item->user_id)
-                                            ->where('livecode_tutorial_id', $item->module_id)
-                                            ->first();
-                                    @endphp
-                                    @if ($livecode)
-                                        <tr class="hover:bg-slate-100 transition-all ease-in-out">
-                                            <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                                {{ $item->user_name }}
-                                            </td>
-                                            <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                                @if ($assessment && isset($assessment->average_score))
-                                                    {{ number_format($assessment->average_score, 2) }}
-                                                @else
-                                                    Belum Dinilai
-                                                @endif
-                                            </td>
-                                            <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                                @if ($assessment)
-                                                    <a href="{{ route('livecode_assessments.edit', ['assessment' => $assessment->id]) }}"
-                                                        class="btn group btn-sm bg-yellow-500 text-white px-4 py-2 rounded">
-                                                        Ubah Nilai
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('livecode_assessments.create', ['livecode_id' => $item->id]) }}"
-                                                        class="btn group btn-sm bg-yellow-500 text-white px-4 py-2 rounded">
-                                                        Nilai
-                                                    </a>
-                                                @endif
-                                            </td>
+                        @foreach ($progress as $module_id => $items)
+                            <div class="mb-6">
+                                <h5 class="text-lg font-semibold ml-3 py-3">{{ $items->first()->module_name }}</h5>
+                                <table class="text-left w-full whitespace-nowrap mt-2">
+                                    <thead class="text-gray-700 sticky top-0">
+                                        <tr>
+                                            <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">User
+                                            </th>
+                                            <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Nilai
+                                            </th>
+                                            <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Aksi
+                                            </th>
                                         </tr>
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($items as $item)
+                                            @php
+                                                $livecode = json_decode($item->livecode, true);
+                                                $assessment = $assessments
+                                                    ->where('user_id', $item->user_id)
+                                                    ->where('livecode_tutorial_id', $item->module_id)
+                                                    ->first();
+                                            @endphp
+                                            @if ($livecode)
+                                                <tr class="hover:bg-slate-100 transition-all ease-in-out">
+                                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                                        {{ $item->user_name }}
+                                                    </td>
+                                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                                        @if ($assessment && isset($assessment->average_score))
+                                                            {{ number_format($assessment->average_score, 2) }}
+                                                        @else
+                                                            Belum Dinilai
+                                                        @endif
+                                                    </td>
+                                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                                        @if ($assessment)
+                                                            <a href="{{ route('livecode_assessments.edit', ['assessment' => $assessment->id]) }}"
+                                                                class="btn group btn-sm bg-yellow-500 text-white px-4 py-2 rounded">
+                                                                Ubah Nilai
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('livecode_assessments.create', ['livecode_id' => $item->id]) }}"
+                                                                class="btn group btn-sm bg-yellow-500 text-white px-4 py-2 rounded">
+                                                                Nilai
+                                                            </a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

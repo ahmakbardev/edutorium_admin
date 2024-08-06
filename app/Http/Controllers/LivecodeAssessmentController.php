@@ -13,17 +13,17 @@ class LivecodeAssessmentController extends Controller
     {
         $progress = DB::table('progress')
             ->join('users', 'progress.user_id', '=', 'users.id')
-            ->select('progress.*', 'users.name as user_name')
+            ->join('modules', 'progress.module_id', '=', 'modules.id')
+            ->select('progress.*', 'users.name as user_name', 'modules.name as module_name')
             ->whereNotNull('progress.livecode')
-            ->get();
+            ->get()
+            ->groupBy('module_id');
 
-        // Get all assessments to check if an assessment already exists for the given user and tutorial
         $assessments = LivecodeAssessment::all();
 
-        // Calculate average score for each assessment
         foreach ($assessments as $assessment) {
             $kriteriaPenilaian = json_decode($assessment->kriteria_penilaian, true);
-            if ($kriteriaPenilaian) {
+            if (is_array($kriteriaPenilaian)) {
                 $totalScore = array_sum(array_column($kriteriaPenilaian, 'nilai'));
                 $averageScore = $totalScore / count($kriteriaPenilaian);
                 $assessment->average_score = $averageScore;
@@ -34,6 +34,7 @@ class LivecodeAssessmentController extends Controller
 
         return view('livecode_assessments.index', compact('progress', 'assessments'));
     }
+
 
     public function create($livecode_id)
     {
