@@ -2,7 +2,6 @@
     <div id="myScrollableElement" class="h-screen" data-simplebar>
         <!-- brand logo -->
         <a class="navbar-brand flex gap-3 items-center" href="/">
-            <img src="{{ asset('assets/images/logo/logo_edu.png') }}" class="w-fit" alt="" />
             <p class="font-bold text-xl text-white w-fit">Edutorium</p>
         </a>
 
