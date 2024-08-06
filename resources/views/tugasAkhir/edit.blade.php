@@ -15,17 +15,6 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-4">
-                            <label for="modul_id" class="block text-gray-700">Modul</label>
-                            <select id="modul_id" name="modul_id"
-                                class="block w-full mt-1 p-2 border border-gray-300 rounded">
-                                @foreach ($modules as $module)
-                                    <option value="{{ $module->id }}"
-                                        {{ $module->id == $tugasAkhir->modul_id ? 'selected' : '' }}>{{ $module->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-4">
                             <label for="nama" class="block text-gray-700">Nama</label>
                             <input type="text" id="nama" name="nama"
                                 class="block w-full mt-1 p-2 border border-gray-300 rounded" value="{{ $tugasAkhir->nama }}"
@@ -55,9 +44,11 @@
                             <div id="kriteria-container" class="flex flex-wrap gap-2 mb-2">
                                 <!-- Dynamic badges will be added here -->
                                 @foreach (json_decode($tugasAkhir->kriteria_penilaian, true) as $kriteria)
-                                    <div class="bg-blue-500 px-2 py-1 text-white text-sm font-medium group hover:scale-105 transition-all ease-in-out rounded-full flex items-center whitespace-nowrap text-center space-x-2">
+                                    <div
+                                        class="bg-blue-500 px-2 py-1 text-white text-sm font-medium group hover:scale-105 transition-all ease-in-out rounded-full flex items-center whitespace-nowrap text-center space-x-2">
                                         <span>{{ $kriteria }}</span>
-                                        <button type="button" class="remove-kriteria text-white hover:text-red-300 transition-all ease-in-out">
+                                        <button type="button"
+                                            class="remove-kriteria text-white hover:text-red-300 transition-all ease-in-out">
                                             <i data-feather="x" class="w-4 h-4"></i>
                                         </button>
                                     </div>
@@ -78,24 +69,71 @@
         </div>
     </div>
 
-    <script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#deskripsi'), {
-                ckfinder: {
-                    uploadUrl: "{{ route('tugasAkhir.upload', ['_token' => csrf_token()]) }}",
-                    options: {
-                        resourceType: 'Images'
-                    }
-                },
-                mediaEmbed: {
-                    previewsInData: true
+        CKEDITOR.ClassicEditor.create(document.querySelector('#deskripsi'), {
+            toolbar: {
+                items: [
+                    "heading", "|",
+                    "bold", "italic", "strikethrough", "underline", "code", "subscript", "superscript",
+                    "removeFormat", "|",
+                    "bulletedList", "numberedList", "todoList", "|",
+                    "outdent", "indent", "|",
+                    "undo", "redo", "-",
+                    "fontSize", "fontFamily", "fontColor", "fontBackgroundColor", "highlight", "|",
+                    "alignment", "|",
+                    "link", "insertImage", "blockQuote", "insertTable", "mediaEmbed", "codeBlock", "htmlEmbed",
+                    "|",
+                    "specialCharacters", "horizontalLine", "pageBreak", "|",
+                    "textPartLanguage", "|",
+                    "sourceEditing"
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            removePlugins: [
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                'MathType',
+                'ExportPdf',
+                'ExportWord',
+                'CKBox',
+                'CKFinder',
+                'EasyImage',
+                'Base64UploadAdapter',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                'MathType',
+                'WebSocketGateway'
+            ],
+            ckfinder: {
+                uploadUrl: "{{ route('tugasAkhir.upload', ['_token' => csrf_token()]) }}",
+                options: {
+                    resourceType: 'Images'
                 }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            },
+            mediaEmbed: {
+                previewsInData: true
+            }
+        }).catch(error => {
+            console.error(error);
+        });
 
         $(document).ready(function() {
             let kriteria = @json(json_decode($tugasAkhir->kriteria_penilaian, true));
@@ -137,6 +175,20 @@
             updateKriteriaField();
         });
     </script>
+    <style>
+        .ck-editor__editable {
+            border-bottom-left-radius: 15px !important;
+            border-bottom-right-radius: 15px !important;
+            min-height: 200px;
+            /* border: 0; */
+        }
+
+        .ck-toolbar {
+            background: #F2F4F7 !important;
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 15px !important;
+        }
+    </style>
 @endsection
 
 @push('scripts')

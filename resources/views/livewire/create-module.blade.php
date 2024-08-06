@@ -3,7 +3,7 @@
         <div class="text-green-500 mb-4">{{ session('message') }}</div>
     @endif
 
-    <form wire:submit.prevent="save" class="space-y-4" onsubmit="updateDescription()">
+    <form wire:submit.prevent="save" class="space-y-4">
         <div>
             <label for="name" class="block text-gray-700">Nama</label>
             <input type="text" id="name" wire:model="name"
@@ -15,8 +15,7 @@
 
         <div>
             <label for="description" class="block text-gray-700">Deskripsi</label>
-            <textarea id="description" wire:model.lazy="description"
-                class="block w-full mt-1 p-2 border border-gray-300 rounded ckeditor"></textarea>
+            <textarea id="description" wire:model.lazy="description" class="block w-full mt-1 p-2 border border-gray-300 rounded"></textarea>
             @error('description')
                 <span class="text-red-500">{{ $message }}</span>
             @enderror
@@ -37,48 +36,4 @@
 
         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Simpan Modul</button>
     </form>
-
-    <script>
-        function initializeCKEditor() {
-            if (CKEDITOR.instances.description) {
-                CKEDITOR.instances.description.destroy(true);
-            }
-            CKEDITOR.replace('description');
-            CKEDITOR.instances.description.on('change', function() {
-                @this.set('description', CKEDITOR.instances.description.getData());
-            });
-        }
-
-        function updateDescription() {
-            @this.set('description', CKEDITOR.instances.description.getData());
-        }
-
-        document.addEventListener('livewire:load', function() {
-            initializeCKEditor();
-        });
-
-        document.addEventListener('livewire:update', function() {
-            initializeCKEditor();
-        });
-
-        function uploadImage(input) {
-            if (input.files && input.files[0]) {
-                var formData = new FormData();
-                formData.append('image', input.files[0]);
-
-                fetch('{{ route('upload.image') }}', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        window.livewire.emit('imageUploaded', data.imagePath);
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        }
-    </script>
 </div>

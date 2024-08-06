@@ -15,8 +15,7 @@
 
         <div>
             <label for="description" class="block text-gray-700">Deskripsi</label>
-            <textarea id="description" wire:model.lazy="description"
-                class="block w-full mt-1 p-2 border border-gray-300 rounded ckeditor"></textarea>
+            <textarea id="description" wire:model.lazy="description" class="block w-full mt-1 p-2 border border-gray-300 rounded"></textarea>
             @error('description')
                 <span class="text-red-500">{{ $message }}</span>
             @enderror
@@ -37,24 +36,4 @@
 
         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Simpan Perubahan</button>
     </form>
-
-    <script>
-        function initializeCKEditor() {
-            if (CKEDITOR.instances.description) {
-                CKEDITOR.instances.description.destroy(true);
-            }
-            CKEDITOR.replace('description');
-            CKEDITOR.instances.description.on('change', function() {
-                @this.set('description', CKEDITOR.instances.description.getData());
-            });
-        }
-
-        document.addEventListener('livewire:load', function() {
-            initializeCKEditor();
-        });
-
-        document.addEventListener('livewire:update', function() {
-            initializeCKEditor();
-        });
-    </script>
 </div>

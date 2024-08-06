@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class LivecodeTutorialController extends Controller
 {
-    //
     public function index()
     {
         $livecodeTutorials = LivecodeTutorial::with('module')->get();
@@ -29,7 +28,10 @@ class LivecodeTutorialController extends Controller
             'description' => 'required|string',
             'tutorial' => 'required|string',
             'deadline' => 'required|date',
+            'kriteria' => 'nullable|string', // Change validation rule to string
         ]);
+
+        // dd($request->all());
 
         LivecodeTutorial::create([
             'module_id' => $request->module_id,
@@ -37,6 +39,7 @@ class LivecodeTutorialController extends Controller
             'description' => $request->description,
             'tutorial' => $request->tutorial,
             'deadline' => $request->deadline,
+            'kriteria' => $request->kriteria, // Directly save JSON string
         ]);
 
         return redirect()->route('livecode_tutorials.index')->with('success', 'Livecode Tutorial berhasil dibuat.');
@@ -57,10 +60,18 @@ class LivecodeTutorialController extends Controller
             'description' => 'required|string',
             'tutorial' => 'required|string',
             'deadline' => 'required|date',
+            'kriteria' => 'nullable|string', // Change validation rule to string
         ]);
 
         $livecodeTutorial = LivecodeTutorial::findOrFail($id);
-        $livecodeTutorial->update($request->all());
+        $livecodeTutorial->update([
+            'module_id' => $request->module_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'tutorial' => $request->tutorial,
+            'deadline' => $request->deadline,
+            'kriteria' => $request->kriteria, // Directly save JSON string
+        ]);
 
         return redirect()->route('livecode_tutorials.index')->with('success', 'Livecode Tutorial updated successfully.');
     }

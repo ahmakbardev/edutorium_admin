@@ -54,30 +54,22 @@
     <div id="editModal"
         class="fixed inset-0 z-50 flex items-center justify-center overflow-y-hidden bg-black bg-opacity-10 transition-opacity duration-300 hidden opacity-0 backdrop-blur-sm">
         <div
-            class="modal-content relative bg-white rounded-lg px-3 py-3 md:px-8 md:py-8 transform translate-y-16 opacity-0 transition-transform duration-300 ease-in-out">
+            class="modal-content relative bg-white rounded-lg px-3 py-3 md:px-8 w-full max-w-xl md:py-8 transform translate-y-16 opacity-0 transition-transform duration-300 ease-in-out">
             <!-- Konten modal -->
             <div
-                class="custom-art relative px-2 md:px-5 lg:px-0 max-lg:flex max-lg:flex-col grid place-content-center h-full gap-4">
-                <div class="flex overflow-hidden justify-center items-center p-2 gap-3">
-                    <form id="editForm" class="space-y-4">
-                        <div>
+                class="custom-art relative px-2 md:px-5 lg:px-0 max-lg:flex max-lg:flex-col grid h-full w-full gap-4">
+                <div class="flex overflow-hidden w-full p-2 gap-3">
+                    <form id="editForm" class="space-y-4 w-full">
+                        <div class="w-full">
                             <label for="editName" class="block text-gray-700">Nama</label>
                             <input type="text" id="editName"
                                 class="block w-full mt-1 p-2 border border-gray-300 rounded">
                         </div>
 
-                        <div>
+                        <div class="w-full">
                             <label for="editDescription" class="block text-gray-700">Deskripsi</label>
-                            <textarea id="editDescription" class="block w-full mt-1 p-2 border border-gray-300 rounded ckeditor"></textarea>
+                            <textarea id="editDescription" class="block w-full mt-1 p-2 border border-gray-300 rounded"></textarea>
                         </div>
-                        {{--
-                        <div>
-                            <label for="editStatus" class="block text-gray-700">Status</label>
-                            <select id="editStatus" class="block w-full mt-1 p-2 border border-gray-300 rounded">
-                                <option value="draft">Draft</option>
-                                <option value="publish">Publish</option>
-                            </select>
-                        </div> --}}
 
                         <button type="button" onclick="saveEdit()"
                             class="px-4 py-2 bg-blue-600 text-white rounded">Simpan Perubahan</button>
@@ -106,7 +98,7 @@
             $('#editModal').removeClass('hidden').addClass('opacity-100');
             $('#editForm').data('moduleId', moduleId);
             $('#editName').val(name);
-            CKEDITOR.instances.editDescription.setData(decodeHtml(description));
+            $('#editDescription').val(decodeHtml(description));
             $('#editStatus').val(status);
             setTimeout(function() {
                 $('.modal-content').removeClass('translate-y-16').addClass('translate-y-0 opacity-100');
@@ -128,7 +120,7 @@
         function saveEdit() {
             const moduleId = $('#editForm').data('moduleId');
             const name = $('#editName').val();
-            const description = CKEDITOR.instances.editDescription.getData();
+            const description = $('#editDescription').val();
             const status = $('#editStatus').val();
 
             @this.call('updateModule', moduleId, name, description, status);

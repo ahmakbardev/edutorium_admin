@@ -42,6 +42,19 @@
             </div>
         </div>
     @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div
+                class="own-toast bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 shadow-lg rounded transform transition-transform duration-300 translate-y-[-10px] opacity-0">
+                <div class="flex items-center">
+                    <div class="ml-3">
+                        <p class="text-sm">{{ $error }}</p>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endif
 </div>
 
 <script>

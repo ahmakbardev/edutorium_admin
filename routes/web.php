@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LivecodeAssessmentController;
 use App\Http\Controllers\LivecodeTutorialController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ModulImageUploadController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\TugasAkhirAssessmentController;
 use App\Http\Controllers\TugasAkhirController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('admin.dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
@@ -72,3 +74,17 @@ Route::resource('tugas-akhir', TugasAkhirController::class)->names([
 ]);
 
 Route::post('upload-image-tugas-akhir', [MateriController::class, 'uploadTugasAkhir'])->name('tugasAkhir.upload');
+
+Route::get('/livecode_assessments', [LivecodeAssessmentController::class, 'index'])->name('livecode_assessments.index');
+Route::get('livecode_assessments/create/{livecode_id}', [LivecodeAssessmentController::class, 'create'])->name('livecode_assessments.create');
+Route::post('livecode_assessments/store', [LivecodeAssessmentController::class, 'store'])->name('livecode_assessments.store');
+Route::get('livecode_assessments/{assessment}/edit', [LivecodeAssessmentController::class, 'edit'])->name('livecode_assessments.edit');
+Route::put('livecode_assessments/{assessment}', [LivecodeAssessmentController::class, 'update'])->name('livecode_assessments.update');
+Route::delete('livecode_assessments/{assessment}', [LivecodeAssessmentController::class, 'destroy'])->name('livecode_assessments.destroy');
+
+Route::get('/tugas-akhir-assessments', [TugasAkhirAssessmentController::class, 'index'])->name('tugas_akhir_assessments.index');
+Route::get('/tugas-akhir-assessments/create/{tugas_akhir_id}/{user_id}', [TugasAkhirAssessmentController::class, 'create'])->name('tugas_akhir_assessments.create');
+Route::post('/tugas-akhir-assessments', [TugasAkhirAssessmentController::class, 'store'])->name('tugas_akhir_assessments.store');
+Route::get('/tugas-akhir-assessments/edit/{id}', [TugasAkhirAssessmentController::class, 'edit'])->name('tugas_akhir_assessments.edit');
+Route::put('/tugas-akhir-assessments/{id}', [TugasAkhirAssessmentController::class, 'update'])->name('tugas_akhir_assessments.update');
+Route::delete('/tugas-akhir-assessments/{id}', [TugasAkhirAssessmentController::class, 'destroy'])->name('tugas_akhir_assessments.destroy');

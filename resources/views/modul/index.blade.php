@@ -1,7 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script> --}}
+
 
 
     <div class="mx-6 my-10 grid grid-cols-1 grid-rows-1 grid-flow-row-dense gap-6">

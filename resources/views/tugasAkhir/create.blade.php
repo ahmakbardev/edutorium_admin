@@ -13,15 +13,6 @@
                     <form action="{{ route('tugasAkhir.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
-                            <label for="modul_id" class="block text-gray-700">Modul</label>
-                            <select id="modul_id" name="modul_id"
-                                class="block w-full mt-1 p-2 border border-gray-300 rounded">
-                                @foreach ($modules as $module)
-                                    <option value="{{ $module->id }}">{{ $module->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-4">
                             <label for="nama" class="block text-gray-700">Nama</label>
                             <input type="text" id="nama" name="nama"
                                 class="block w-full mt-1 p-2 border border-gray-300 rounded" required>
@@ -60,24 +51,71 @@
         </div>
     </div>
 
-    <script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#deskripsi'), {
-                ckfinder: {
-                    uploadUrl: "{{ route('tugasAkhir.upload', ['_token' => csrf_token()]) }}",
-                    options: {
-                        resourceType: 'Images'
-                    }
-                },
-                mediaEmbed: {
-                    previewsInData: true
+        CKEDITOR.ClassicEditor.create(document.querySelector('#deskripsi'), {
+            toolbar: {
+                items: [
+                    "heading", "|",
+                    "bold", "italic", "strikethrough", "underline", "code", "subscript", "superscript",
+                    "removeFormat", "|",
+                    "bulletedList", "numberedList", "todoList", "|",
+                    "outdent", "indent", "|",
+                    "undo", "redo", "-",
+                    "fontSize", "fontFamily", "fontColor", "fontBackgroundColor", "highlight", "|",
+                    "alignment", "|",
+                    "link", "insertImage", "blockQuote", "insertTable", "mediaEmbed", "codeBlock", "htmlEmbed",
+                    "|",
+                    "specialCharacters", "horizontalLine", "pageBreak", "|",
+                    "textPartLanguage", "|",
+                    "sourceEditing"
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            removePlugins: [
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                'MathType',
+                'ExportPdf',
+                'ExportWord',
+                'CKBox',
+                'CKFinder',
+                'EasyImage',
+                'Base64UploadAdapter',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                'MathType',
+                'WebSocketGateway'
+            ],
+            ckfinder: {
+                uploadUrl: "{{ route('tugasAkhir.upload', ['_token' => csrf_token()]) }}",
+                options: {
+                    resourceType: 'Images'
                 }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            },
+            mediaEmbed: {
+                previewsInData: true
+            }
+        }).catch(error => {
+            console.error(error);
+        });
 
         $(document).ready(function() {
             let kriteria = [];
@@ -116,6 +154,20 @@
             });
         });
     </script>
+    <style>
+        .ck-editor__editable {
+            border-bottom-left-radius: 15px !important;
+            border-bottom-right-radius: 15px !important;
+            min-height: 200px;
+            /* border: 0; */
+        }
+
+        .ck-toolbar {
+            background: #F2F4F7 !important;
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 15px !important;
+        }
+    </style>
 @endsection
 
 @push('scripts')

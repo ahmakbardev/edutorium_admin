@@ -19,14 +19,13 @@
                     </div>
                 </div>
                 <div class="container mx-auto">
-                    {{-- @if (session('success'))
+                    @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif --}}
+                    @endif
                     <div class="relative overflow-x-auto overflow-y-auto max-h-[458px]" data-simplebar="">
                         <table class="text-left w-full whitespace-nowrap">
                             <thead class="text-gray-700 sticky top-0">
                                 <tr>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Modul</th>
                                     <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Nama</th>
                                     <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Deskripsi</th>
                                     <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Deadline</th>
@@ -36,8 +35,6 @@
                             <tbody>
                                 @foreach ($tugasAkhirs as $tugasAkhir)
                                     <tr class="hover:bg-slate-100 transition-all ease-in-out">
-                                        <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                            {{ $tugasAkhir->modul->name }}</td>
                                         <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
                                             {{ $tugasAkhir->nama }}</td>
                                         <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
@@ -135,5 +132,4 @@
             })
         }
     </script>
-
 @endsection

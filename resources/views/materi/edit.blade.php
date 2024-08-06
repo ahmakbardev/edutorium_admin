@@ -9,7 +9,7 @@
                         <h4 class="font-semibold text-base">Edit Materi</h4>
                     </div>
                 </div>
-                <div class="container mx-auto py-8">
+                <div class="container mx-auto py-8 px-5">
                     <form action="{{ route('materi.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -56,22 +56,74 @@
         </div>
     </div>
 
-    <script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckfinder/3.5.1/ckfinder.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         var uploadImageCK = "{{ route('materi.upload') }}?_token={{ csrf_token() }}";
 
-        ClassicEditor
-            .create(document.querySelector('#materi'), {
-                ckfinder: {
-                    uploadUrl: uploadImageCK
-                },
-                mediaEmbed: {
-                    previewsInData: true
+        CKEDITOR.ClassicEditor.create(document.querySelector('#materi'), {
+            toolbar: {
+                items: [
+                    "findAndReplace", "selectAll", "|",
+                    "heading", "|",
+                    "fontSize", "fontFamily", "fontColor", "fontBackgroundColor", "highlight", "|",
+                    "bulletedList", "numberedList", "todoList", "|",
+                    "outdent", "indent", "|",
+                    "undo", "redo", "|",
+                    "specialCharacters", "horizontalLine", "|",
+                    "link", "insertImage", "blockQuote", "insertTable", "mediaEmbed",
+                    "-",
+                    "alignment", "|",
+                    "bold", "italic", "strikethrough", "underline", "code", "subscript", "superscript",
+                    "removeFormat", "|",
+                    "exportPDF", "exportWord", "|",
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            removePlugins: [
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                'MathType',
+                'WebSocketGateway'
+            ],
+            ckfinder: {
+                uploadUrl: uploadImageCK,
+                options: {
+                    resourceType: 'Images'
                 }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            },
+            mediaEmbed: {
+                previewsInData: true
+            }
+        }).then(editor => {
+            editor.ui.view.editable.element.style.minHeight = "200px";
+            editor.ui.view.editable.element.style.borderBottomLeftRadius = "15px";
+            editor.ui.view.editable.element.style.borderBottomRightRadius = "15px";
+            editor.ui.view.editable.element.closest('.ck-editor').style.borderRadius = "15px";
+        }).catch(error => {
+            console.error(error);
+        });
     </script>
+    <style>
+        .ck-editor__editable {
+            border-bottom-left-radius: 15px !important;
+            border-bottom-right-radius: 15px !important;
+            min-height: 200px;
+            /* border: 0; */
+        }
+
+        .ck-toolbar {
+            background: #F2F4F7 !important;
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 15px !important;
+        }
+    </style>
 @endsection

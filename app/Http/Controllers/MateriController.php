@@ -13,12 +13,9 @@ class MateriController extends Controller
     //
     public function index()
     {
-        $materis = Materi::with('modul')->get();
+        $materis = Materi::with('modul')->orderBy('urutan_materi')->get()->groupBy('modul_id');
         return view('materi.index', compact('materis'));
     }
-
-
-
 
     public function create()
     {

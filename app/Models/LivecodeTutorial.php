@@ -15,6 +15,7 @@ class LivecodeTutorial extends Model
         'name',
         'description',
         'tutorial',
+        'kriteria',
         'deadline'
     ];
 

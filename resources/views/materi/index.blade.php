@@ -22,81 +22,88 @@
                 </div>
 
                 <!-- Tabel Daftar Materi -->
-                <div class="container mx-auto">
-                    {{-- @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif --}}
-                    <div class="relative overflow-x-auto overflow-y-auto max-h-[458px]" data-simplebar="">
-                        <table class="text-left w-full whitespace-nowrap">
-                            <thead class="text-gray-700 sticky top-0">
-                                <tr>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Modul</th>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Urutan Materi
-                                    </th>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Nama Materi
-                                    </th>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Gambar</th>
-                                    <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="">
-                                @foreach ($materis as $materi)
-                                    <tr class="hover:bg-slate-100 transition-all ease-in-out">
-                                        <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                            {{ $materi->modul->name }}</td>
-                                        <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                            {{ $materi->urutan_materi }}</td>
-                                        <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                            {{ $materi->nama_materi }}</td>
-                                        <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                            @if ($materi->gambar)
-                                                <img src="{{ asset('storage/' . $materi->gambar) }}" alt="Gambar"
-                                                    class="w-16 h-16 object-cover">
-                                            @else
-                                                Tidak ada gambar
-                                            @endif
-                                        </td>
-                                        <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
-                                            <a href="{{ route('materi.edit', $materi->id) }}" class="btn group btn-sm">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="w-4 h-4 text-sky-400 group-hover:text-sky-500 transition-all ease-in-out mr-2"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-edit">
-                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
-                                                    </path>
-                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
-                                                    </path>
-                                                </svg>
-                                            </a>
-                                            <button class="btn group btn-sm" onclick="deleteMateri({{ $materi->id }})">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="w-4 h-4 text-red-300 group-hover:text-red-500 transition-all ease-in-out mr-2"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-trash-2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path
-                                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                    </path>
-                                                    <line x1="10" y1="11" x2="10" y2="17">
-                                                    </line>
-                                                    <line x1="14" y1="11" x2="14" y2="17">
-                                                    </line>
-                                                </svg>
-                                            </button>
-                                            <form id="delete-form-{{ $materi->id }}"
-                                                action="{{ route('materi.destroy', $materi->id) }}" method="POST"
-                                                class="hidden">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="container mx-auto p-5">
+                    @foreach ($materis as $modulId => $materiGroup)
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold mb-4 pb-2 border-b">{{ $materiGroup->first()->modul->name }}</h2>
+                            <div class="relative overflow-x-auto overflow-y-auto max-h-[458px]" data-simplebar="">
+                                <table class="text-left w-full whitespace-nowrap">
+                                    <thead class="text-gray-700 sticky top-0">
+                                        <tr>
+                                            <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Urutan
+                                                Materi</th>
+                                            <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Nama
+                                                Materi</th>
+                                            <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Gambar
+                                            </th>
+                                            <th scope="col" class="border-b bg-gray-100 px-6 py-3 cursor-default">Aksi
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($materiGroup as $materi)
+                                            <tr class="hover:bg-slate-100 transition-all ease-in-out">
+                                                <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                                    {{ $materi->urutan_materi }}</td>
+                                                <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                                    {{ $materi->nama_materi }}</td>
+                                                <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                                    @if ($materi->gambar)
+                                                        <img src="{{ asset('storage/' . $materi->gambar) }}" alt="Gambar"
+                                                            class="w-16 h-16 object-cover">
+                                                    @else
+                                                        Tidak ada gambar
+                                                    @endif
+                                                </td>
+                                                <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                                    <a href="{{ route('materi.edit', $materi->id) }}"
+                                                        class="btn group btn-sm">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="w-4 h-4 text-sky-400 group-hover:text-sky-500 transition-all ease-in-out mr-2"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-edit">
+                                                            <path
+                                                                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                                                            </path>
+                                                            <path
+                                                                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                                                            </path>
+                                                        </svg>
+                                                    </a>
+                                                    <button class="btn group btn-sm"
+                                                        onclick="deleteMateri({{ $materi->id }})">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="w-4 h-4 text-red-300 group-hover:text-red-500 transition-all ease-in-out mr-2"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                            class="feather feather-trash-2">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path
+                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                            </path>
+                                                            <line x1="10" y1="11" x2="10"
+                                                                y2="17">
+                                                            </line>
+                                                            <line x1="14" y1="11" x2="14"
+                                                                y2="17">
+                                                            </line>
+                                                        </svg>
+                                                    </button>
+                                                    <form id="delete-form-{{ $materi->id }}"
+                                                        action="{{ route('materi.destroy', $materi->id) }}" method="POST"
+                                                        class="hidden">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
                 <!-- End of Tabel Daftar Materi -->
             </div>

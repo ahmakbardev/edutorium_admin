@@ -3437,8 +3437,6 @@ button[aria-expanded="true"] .collapse-icon {
 
 .navbar-vertical .navbar-brand {
     padding: 1rem 1.5rem 1.5rem;
-
-    display: block;
 }
 .navbar-vertical .navbar-brand img {
     height: 1.875rem;

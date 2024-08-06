@@ -9,24 +9,20 @@ use Illuminate\Support\Facades\Storage;
 
 class TugasAkhirController extends Controller
 {
-    //
-
     public function index()
     {
-        $tugasAkhirs = TugasAkhir::with('modul')->get();
+        $tugasAkhirs = TugasAkhir::all(); // Tidak lagi menggunakan with('modul')
         return view('tugasAkhir.index', compact('tugasAkhirs'));
     }
 
     public function create()
     {
-        $modules = Module::all();
-        return view('tugasAkhir.create', compact('modules'));
+        return view('tugasAkhir.create'); // Tidak lagi mengirimkan data modules
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'modul_id' => 'required|exists:modules,id',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'deskripsi_pdf' => 'nullable|file|mimes:pdf',
@@ -34,11 +30,9 @@ class TugasAkhirController extends Controller
             'kriteria_penilaian' => 'required|json'
         ]);
 
-        // dd($validatedData);
-
         if ($request->hasFile('deskripsi_pdf')) {
             $path = $request->file('deskripsi_pdf')->store('public/deskripsi_pdf');
-            $validatedData['deskripsi_pdf'] = $path;
+            $validatedData['deskripsi_pdf'] = str_replace('public/', '', $path);
         }
 
         TugasAkhir::create($validatedData);
@@ -48,14 +42,12 @@ class TugasAkhirController extends Controller
 
     public function edit(TugasAkhir $tugasAkhir)
     {
-        $modules = Module::all();
-        return view('tugasAkhir.edit', compact('tugasAkhir', 'modules'));
+        return view('tugasAkhir.edit', compact('tugasAkhir'));
     }
 
     public function update(Request $request, TugasAkhir $tugasAkhir)
     {
         $data = $request->validate([
-            'modul_id' => 'required|exists:modules,id',
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'deskripsi_pdf' => 'nullable|file|mimes:pdf|max:2048',
@@ -67,20 +59,23 @@ class TugasAkhirController extends Controller
             if ($tugasAkhir->deskripsi_pdf) {
                 Storage::delete('public/' . $tugasAkhir->deskripsi_pdf);
             }
-            $pdfPath = $request->file('deskripsi_pdf')->store('tugas_akhir', 'public');
-            $data['deskripsi_pdf'] = $pdfPath;
+            $pdfPath = $request->file('deskripsi_pdf')->store('public/deskripsi_pdf');
+            $data['deskripsi_pdf'] = str_replace('public/', '', $pdfPath);
         }
 
         $tugasAkhir->update($data);
 
-        return redirect()->route('tugasAkhir.index')->with('success', 'Tugas Akhir updated successfully');
+        return redirect()->route('tugasAkhir.index')->with('success', 'Tugas Akhir berhasil diperbarui.');
     }
-
 
     public function destroy(TugasAkhir $tugasAkhir)
     {
-        Storage::delete($tugasAkhir->deskripsi_pdf);
+        if ($tugasAkhir->deskripsi_pdf) {
+            Storage::delete($tugasAkhir->deskripsi_pdf);
+        }
+
         $tugasAkhir->delete();
+
         return redirect()->route('tugasAkhir.index')->with('success', 'Tugas Akhir berhasil dihapus.');
     }
 }

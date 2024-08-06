@@ -1,8 +1,9 @@
 <nav class="navbar-vertical navbar">
     <div id="myScrollableElement" class="h-screen" data-simplebar>
         <!-- brand logo -->
-        <a class="navbar-brand" href="./index.html">
-            <img src="{{ asset('assets/images/brand/logo/logo.svg') }}" alt="" />
+        <a class="navbar-brand flex gap-3 items-center" href="/">
+            <img src="{{ asset('assets/images/logo/logo_edu.png') }}" class="w-fit" alt="" />
+            <p class="font-bold text-xl text-white w-fit">Edutorium</p>
         </a>
 
         <!-- navbar nav -->
@@ -82,15 +83,15 @@
                     data-bs-parent="#sideNavbar">
                     <ul class="nav flex-col">
                         <li class="nav-item">
-                            <a class="nav-link flex gap-1 {{ request()->routeIs('penilaian.livecode') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-link flex gap-1 {{ request()->routeIs('livecode_assessments.index') ? 'active' : '' }}"
+                                href="{{ route('livecode_assessments.index') }}">
                                 <i data-feather="code" class="w-4 h-4 mr-2"></i>
                                 LiveCode
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link flex gap-1 {{ request()->routeIs('penilaian.tugasakhir') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-link flex gap-1 {{ request()->routeIs('tugas_akhir_assessments.index') ? 'active' : '' }}"
+                                href="{{ route('tugas_akhir_assessments.index') }}">
                                 <i data-feather="star" class="w-4 h-4 mr-2"></i>
                                 Tugas Akhir
                             </a>
