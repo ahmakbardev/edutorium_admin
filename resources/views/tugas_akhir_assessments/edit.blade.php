@@ -31,6 +31,11 @@
                             <p class="text-black">{{ $submission->additional_info }}</p>
                         </div>
                         <div class="mb-4">
+                            <label for="web_url" class="block text-gray-700">URL Website</label>
+                            <a href="{{ $submission->web_url }}" target="_blank"
+                                class="text-blue-600 hover:underline">{{ $submission->web_url }}</a>
+                        </div>
+                        <div class="mb-4">
                             <label for="github_url" class="block text-gray-700">URL GitHub</label>
                             <a href="{{ $submission->github_url }}" target="_blank"
                                 class="text-blue-600 hover:underline">{{ $submission->github_url }}</a>
