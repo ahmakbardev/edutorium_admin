@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LivecodeAssessmentController;
 use App\Http\Controllers\LivecodeTutorialController;
@@ -88,3 +89,5 @@ Route::post('/tugas-akhir-assessments', [TugasAkhirAssessmentController::class, 
 Route::get('/tugas-akhir-assessments/edit/{id}', [TugasAkhirAssessmentController::class, 'edit'])->name('tugas_akhir_assessments.edit');
 Route::put('/tugas-akhir-assessments/{id}', [TugasAkhirAssessmentController::class, 'update'])->name('tugas_akhir_assessments.update');
 Route::delete('/tugas-akhir-assessments/{id}', [TugasAkhirAssessmentController::class, 'destroy'])->name('tugas_akhir_assessments.destroy');
+
+Route::resource('banners', BannerController::class);
