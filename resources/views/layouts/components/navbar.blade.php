@@ -101,16 +101,18 @@
             </li>
             <!-- nav item -->
             <li class="nav-item">
-                <div class="navbar-heading">Akun</div>
+                <div class="navbar-heading">Additional Features</div>
             </li>
 
             <!-- nav item -->
             <li class="nav-item">
-                <a class="nav-link {{ request()->routeIs('user.profile.index') ? 'active' : '' }}" href="#">
-                    <i data-feather="user" class="w-4 h-4 mr-2"></i>
-                    Profil
+                <a class="nav-link {{ request()->routeIs('banners.*') ? 'active' : '' }}"
+                    href="{{ route('banners.index') }}">
+                    <i data-feather="tv" class="w-4 h-4 mr-2"></i>
+                    Banner
                 </a>
             </li>
+
         </ul>
     </div>
 </nav>
