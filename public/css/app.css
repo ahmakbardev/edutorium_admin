@@ -877,6 +877,12 @@ video {
 .h-screen {
   height: 100vh;
 }
+.h-\[800px\] {
+  height: 800px;
+}
+.h-\[\] {
+  height: ;
+}
 .max-h-32 {
   max-height: 8rem;
 }
@@ -1856,6 +1862,14 @@ video {
 
 .toast {
     width: 300px;
+}
+
+.\*\:h-\[600px\] > * {
+  height: 600px;
+}
+
+.\*\:h-\[800px\] > * {
+  height: 800px;
 }
 
 .selection\:bg-red-500 *::-moz-selection {
