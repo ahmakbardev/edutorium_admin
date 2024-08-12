@@ -194,8 +194,27 @@
                 readOnly: 'nocursor' // Read only, but allow selection
             });
             jsEditor.setValue(jsContent);
+
+            // Function to refresh editors when the corresponding tab is activated
+            function refreshEditors() {
+                htmlEditor.refresh();
+                cssEditor.refresh();
+                jsEditor.refresh();
+            }
+
+            // Attach event listeners to tab switches to refresh CodeMirror instances
+            const tabLinks = document.querySelectorAll('[data-bs-toggle="pill"]');
+            tabLinks.forEach((tabLink) => {
+                tabLink.addEventListener('shown.bs.tab', (event) => {
+                    const targetTab = event.target.getAttribute('aria-controls');
+                    if (['htmlContent', 'cssContent', 'jsContent'].includes(targetTab)) {
+                        refreshEditors();
+                    }
+                });
+            });
         });
     </script>
+
 
 
     <script>
