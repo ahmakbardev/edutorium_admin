@@ -55,7 +55,7 @@
                                         @endphp
                                         <div
                                             class="py-1 text-sm font-medium group hover:scale-105 transition-all ease-in-out rounded-full flex flex-col whitespace-nowrap">
-                                            <span class="text-gray-700">{{ $kriteria_item }}</span>
+                                            <span class="text-gray-700 text-wrap">{{ $kriteria_item }}</span>
                                             <input type="number" name="kriteria_penilaian[{{ $kriteria_item }}]"
                                                 class="p-2 border ml-0 border-gray-300 rounded" placeholder="Nilai"
                                                 value="{{ $nilai }}" required>
