@@ -114,7 +114,7 @@
             </li>
         </ul>
 
-        <div class="tab-content py-6" id="offcanvas-tabContent">
+        <div class="tab-content py-6 h-[800px]" id="offcanvas-tabContent">
             <div class="tab-pane fade show active" id="tutorialContent" role="tabpanel" aria-labelledby="tab-tutorial"
                 tabindex="0">
                 <div class="p-4 max-h-[800px]" data-simplebar="">
@@ -127,16 +127,19 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="htmlContent" role="tabpanel" aria-labelledby="tab-html" tabindex="0">
-                <textarea id="htmlEditor" class="w-full h-[600px]"></textarea>
+            <div class="tab-pane fade h-[800px]" id="htmlContent" role="tabpanel" aria-labelledby="tab-html"
+                tabindex="0">
+                <textarea id="htmlEditor" class="w-full h-[800px] *:h-[800px]"></textarea>
             </div>
 
-            <div class="tab-pane fade" id="cssContent" role="tabpanel" aria-labelledby="tab-css" tabindex="0">
-                <textarea id="cssEditor" class="w-full h-[600px]"></textarea>
+            <div class="tab-pane fade h-[800px]" id="cssContent" role="tabpanel" aria-labelledby="tab-css"
+                tabindex="0">
+                <textarea id="cssEditor" class="w-full h-[800px] *:h-[800px]"></textarea>
             </div>
 
-            <div class="tab-pane fade" id="jsContent" role="tabpanel" aria-labelledby="tab-js" tabindex="0">
-                <textarea id="jsEditor" class="w-full h-[600px]"></textarea>
+            <div class="tab-pane fade h-[800px]" id="jsContent" role="tabpanel" aria-labelledby="tab-js"
+                tabindex="0">
+                <textarea id="jsEditor" class="w-full h-[800px] *:h-[800px]"></textarea>
             </div>
         </div>
     </div>
@@ -175,7 +178,8 @@
                 mode: 'xml',
                 theme: 'material-darker',
                 lineNumbers: true,
-                readOnly: 'nocursor' // Read only, but allow selection
+                readOnly: 'nocursor', // Read only, but allow selection
+                height: '600px' // Set height to 600px
             });
             htmlEditor.setValue(htmlContent);
 
@@ -183,7 +187,8 @@
                 mode: 'css',
                 theme: 'material-darker',
                 lineNumbers: true,
-                readOnly: 'nocursor' // Read only, but allow selection
+                readOnly: 'nocursor', // Read only, but allow selection
+                height: '600px' // Set height to 600px
             });
             cssEditor.setValue(cssContent);
 
@@ -191,7 +196,8 @@
                 mode: 'javascript',
                 theme: 'material-darker',
                 lineNumbers: true,
-                readOnly: 'nocursor' // Read only, but allow selection
+                readOnly: 'nocursor', // Read only, but allow selection
+                height: '600px' // Set height to 600px
             });
             jsEditor.setValue(jsContent);
 
@@ -214,8 +220,12 @@
             });
         });
     </script>
-
-
+    <style>
+        .CodeMirror {
+            height: 800px !important;
+            /* Adjust height */
+        }
+    </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
