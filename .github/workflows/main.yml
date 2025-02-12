@@ -39,6 +39,7 @@ jobs:
             php artisan optimize
             ln -s /home/u723134020/domains/edutorium.in/edutorium_admin/public /home/u723134020/domains/edutorium.in/public_html/admin
             ln -s /home/u723134020/domains/edutorium.in/edutorium_admin/public/storage/* /home/u723134020/domains/edutorium.in/public_html/staging/storage
+
             # Set permissions for storage directory
             find /home/u723134020/domains/edutorium.in/edutorium_admin/storage -type d -exec chmod 755 {} \;
             find /home/u723134020/domains/edutorium.in/edutorium_admin/storage -type f -exec chmod 644 {} \;
